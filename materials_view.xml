@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="materials_list_view" model="ir.ui.view">
+        <field name="name">materials.list.view</field>
+        <field name="model">materials</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="code"/>
+                <field name="type"/>
+                <field name="price"/>
+                <field name="supplier_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="materials_form_view" model="ir.ui.view">
+        <field name="name">materials.form.view</field>
+        <field name="model">materials</field>
+        <field name="arch" type="xml">
+            <form string="Analytic Defaults">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="code"/>
+                        <field name="type"/>
+                        <field name="price"/>
+                        <field name="supplier_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="materials_filter" model="ir.ui.view">
+        <field name="name">materials.filter</field>
+        <field name="model">materials</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name"/>
+                <separator/>
+                <filter string="Fabric" name="Fabric" domain="[('type', '=', 'fabric')]"/>
+                <filter string="Jeans" name="Jeans" domain="[('type', '=', 'jeans')]"/>
+                <filter string="Cotton" name="Cotton" domain="[('type', '=', 'cotton')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_materials" model="ir.actions.act_window">
+        <field name="name">Materials</field>
+        <field name="res_model">materials</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="materials_filter"/>
+    </record>
+
+     <record id="action_materials_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="materials_list_view"/>
+        <field name="act_window_id" ref="action_materials"/>
+    </record>
+    <record id="action_materials_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="materials_form_view"/>
+        <field name="act_window_id" ref="action_materials"/>
+    </record>
+
+    <menuitem id="materials_root_menu" name="Material Registry" />
+    <menuitem id="materials_sub_menu" parent="materials_root_menu" action="action_materials" sequence="1"/>
+
+</odoo>
