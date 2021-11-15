@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="action_order_done" model="ir.actions.act_window">
+        <field name="name">Order Done</field>
+        <field name="res_model">material.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="domain">[('state', 'in', ('confirm', 'done'))]</field>
+        <field name="search_view_id" ref="order_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No records found. Let's create one!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="order_done_sub_menu" parent="order_sub_menu" action="action_order_done" sequence="4"/>
+    
+</odoo>
